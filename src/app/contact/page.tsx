@@ -142,7 +142,7 @@ export default function Contact() {
                   <div className="ml-4">
                     <p className="text-gray-700 dark:text-gray-300 font-medium">Location</p>
                     <p className="text-gray-600 dark:text-gray-400">
-                      Digital Nomad, Currently in Paris, France
+                      Villefranche-sur-Mer, France
                     </p>
                   </div>
                 </div>
