@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailJS Setup Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #6366f1;
+        }
+        .step {
+            margin-bottom: 30px;
+            border-left: 4px solid #6366f1;
+            padding-left: 20px;
+        }
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .important {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>EmailJS Setup Guide for PixelMaestro Contact Form</h1>
+    <p>Follow these steps to set up EmailJS to send contact form submissions to romainrossi25@gmail.com</p>
+    
+    <div class="important">
+        <strong>Note:</strong> This guide will help you create an EmailJS account and obtain the credentials required for your contact form.
+    </div>
+    
+    <div class="step">
+        <h2>Step 1: Create an EmailJS Account</h2>
+        <ol>
+            <li>Go to <a href="https://www.emailjs.com/sign-up/" target="_blank">EmailJS Sign Up</a></li>
+            <li>Create a free account (allows 200 emails/month)</li>
+            <li>Verify your email address</li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>Step 2: Create an Email Service</h2>
+        <ol>
+            <li>From your EmailJS dashboard, click on "Email Services" in the sidebar</li>
+            <li>Click "Add New Service"</li>
+            <li>Choose your preferred email provider (Gmail, Outlook, etc.)</li>
+            <li>Follow the prompts to connect your email account</li>
+            <li><strong>Note:</strong> If using Gmail, you might need to enable "Less secure apps" or create an "App Password" if you have 2FA enabled</li>
+            <li>Once connected, give your service a name (e.g., "portfolio_contact")</li>
+            <li><strong>Copy the Service ID</strong> for later use</li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>Step 3: Create an Email Template</h2>
+        <ol>
+            <li>Click on "Email Templates" in the sidebar</li>
+            <li>Click "Create New Template"</li>
+            <li>Give your template a name (e.g., "contact_form")</li>
+            <li>Set the content of your email:
+                <ul>
+                    <li>From Name: <code>{{from_name}}</code></li>
+                    <li>Reply To: <code>{{from_email}}</code></li>
+                    <li>To Email: <code>{{to_email}}</code></li>
+                    <li>Subject: <code>New Contact Form Message: {{subject}}</code></li>
+                    <li>Body: Design your email template, using variables like <code>{{message}}</code>, <code>{{from_name}}</code>, etc.</li>
+                </ul>
+            </li>
+            <li>Save the template</li>
+            <li><strong>Copy the Template ID</strong> for later use</li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>Step 4: Get Your Public Key</h2>
+        <ol>
+            <li>Go to "Account" → "API Keys" in the sidebar</li>
+            <li><strong>Copy your Public Key</strong> for later use</li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>Step 5: Update Your Code</h2>
+        <p>Open the contact page file (<code>src/app/contact/page.tsx</code>) and replace the placeholder values with your actual credentials:</p>
+        <pre>
+const EMAILJS_SERVICE_ID = "paste_your_service_id_here";
+const EMAILJS_TEMPLATE_ID = "paste_your_template_id_here";
+const EMAILJS_PUBLIC_KEY = "paste_your_public_key_here";
+const RECIPIENT_EMAIL = "romainrossi25@gmail.com"; // Already set
+        </pre>
+    </div>
+    
+    <div class="step">
+        <h2>Step 6: Test Your Contact Form</h2>
+        <ol>
+            <li>Run your Next.js application (<code>npm run dev</code>)</li>
+            <li>Navigate to the Contact page</li>
+            <li>Fill out the form and submit it</li>
+            <li>Check that romainrossi25@gmail.com receives the email</li>
+        </ol>
+    </div>
+    
+    <div class="important">
+        <strong>Security Note:</strong> The public key is safe to include in client-side code, but for added security, consider using environment variables when deploying to production:
+        <pre>
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+        </pre>
+    </div>
+</body>
+</html> 
